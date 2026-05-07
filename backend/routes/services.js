@@ -1,44 +1,81 @@
 import express from 'express'
 import Service from '../models/Service.js'
+import { protect, authorize } from '../middleware/auth.js'
 
 const router = express.Router()
 
-// Get all services
-router.get('/', async (req, res) => {
+// ── GET /api/services ────────────────────────────────
+// Public — get all active services
+router.get('/', async (req, res, next) => {
   try {
-    const services = await Service.find({ active: true })
+    const services = await Service.find({ active: true }).sort('order')
     res.json({
       status: 'success',
       results: services.length,
-      data: services
+      data: services,
     })
-  } catch (error) {
-    res.status(400).json({
-      status: 'error',
-      message: error.message
-    })
+  } catch (err) {
+    next(err)
   }
 })
 
-// Get single service
-router.get('/:slug', async (req, res) => {
+// ── GET /api/services/:slug ──────────────────────────
+// Public — get single service by slug
+router.get('/:slug', async (req, res, next) => {
   try {
-    const service = await Service.findOne({ slug: req.params.slug })
+    const service = await Service.findOne({ slug: req.params.slug, active: true })
     if (!service) {
-      return res.status(404).json({
-        status: 'error',
-        message: 'Service not found'
-      })
+      return res.status(404).json({ status: 'error', message: 'Service not found' })
     }
-    res.json({
-      status: 'success',
-      data: service
+    res.json({ status: 'success', data: service })
+  } catch (err) {
+    next(err)
+  }
+})
+
+// ── POST /api/services ───────────────────────────────
+// Admin — create service
+router.post('/', protect, authorize('admin'), async (req, res, next) => {
+  try {
+    const service = await Service.create(req.body)
+    res.status(201).json({ status: 'success', data: service })
+  } catch (err) {
+    next(err)
+  }
+})
+
+// ── PUT /api/services/:id ────────────────────────────
+// Admin — update service
+router.put('/:id', protect, authorize('admin'), async (req, res, next) => {
+  try {
+    const service = await Service.findByIdAndUpdate(req.params.id, req.body, {
+      new: true,
+      runValidators: true,
     })
-  } catch (error) {
-    res.status(400).json({
-      status: 'error',
-      message: error.message
-    })
+    if (!service) {
+      return res.status(404).json({ status: 'error', message: 'Service not found' })
+    }
+    res.json({ status: 'success', data: service })
+  } catch (err) {
+    next(err)
+  }
+})
+
+// ── DELETE /api/services/:id ─────────────────────────
+// Admin — soft delete (set active: false)
+router.delete('/:id', protect, authorize('admin'), async (req, res, next) => {
+  try {
+    const service = await Service.findByIdAndUpdate(
+      req.params.id,
+      { active: false },
+      { new: true }
+    )
+    if (!service) {
+      return res.status(404).json({ status: 'error', message: 'Service not found' })
+    }
+    res.json({ status: 'success', message: 'Service deactivated' })
+  } catch (err) {
+    next(err)
   }
 })
 
