@@ -1,0 +1,6 @@
+cd ../backend
+npm init -y
+
+# Install backend dependencies
+npm install express mongoose bcryptjs jsonwebtoken cors helmet express-rate-limit express-validator dotenv nodemailer multer compression morgan express-mongo-sanitize xss-clean hpp crypto uuid
+npm install -D nodemon

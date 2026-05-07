@@ -1,0 +1,6 @@
+# Create main project directory
+mkdir cyber-guard-fullstack
+cd cyber-guard-fullstack
+
+# Create frontend and backend directories
+mkdir frontend backend

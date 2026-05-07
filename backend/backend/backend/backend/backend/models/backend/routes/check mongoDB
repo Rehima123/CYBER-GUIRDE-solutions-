@@ -1,0 +1,8 @@
+# Connect to MongoDB
+mongosh
+
+# Use the database
+use cyber-guard-solutions
+
+# Check contacts collection
+db.contacts.find().pretty()

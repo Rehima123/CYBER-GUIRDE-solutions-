@@ -1,0 +1,188 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap');
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-darker text-gray-100;
+    font-family: 'Inter', system-ui, sans-serif;
+    background-color: #020810;
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+
+  ::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: #050d1a;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: #00d4ff44;
+    border-radius: 3px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: #00d4ff88;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply px-8 py-3 bg-transparent text-primary border border-primary rounded-lg font-semibold
+           hover:bg-primary hover:text-dark transition-all duration-300
+           hover:shadow-[0_0_20px_rgba(0,212,255,0.5)] relative overflow-hidden;
+  }
+
+  .btn-accent {
+    @apply px-8 py-3 bg-accent text-dark rounded-lg font-semibold font-mono
+           hover:bg-green-400 transition-all duration-300
+           hover:shadow-[0_0_20px_rgba(0,255,136,0.5)];
+  }
+
+  .btn-solid {
+    @apply px-8 py-3 bg-primary text-dark rounded-lg font-bold
+           hover:bg-secondary transition-all duration-300
+           hover:shadow-[0_0_25px_rgba(0,212,255,0.6)];
+  }
+
+  .section-title {
+    @apply text-4xl md:text-5xl font-bold text-center mb-4 text-white;
+  }
+
+  .section-subtitle {
+    @apply text-gray-400 text-center max-w-2xl mx-auto mb-16 text-lg;
+  }
+
+  .cyber-card {
+    @apply bg-card border border-border rounded-xl p-6
+           hover:border-primary/50 transition-all duration-300
+           hover:shadow-[0_0_30px_rgba(0,212,255,0.1)]
+           relative overflow-hidden;
+  }
+
+  .cyber-card::before {
+    content: '';
+    @apply absolute inset-0 bg-card-gradient opacity-0 transition-opacity duration-300;
+  }
+
+  .cyber-card:hover::before {
+    @apply opacity-100;
+  }
+
+  .glow-text {
+    @apply text-primary;
+    text-shadow: 0 0 20px rgba(0, 212, 255, 0.5);
+  }
+
+  .cyber-badge {
+    @apply inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-mono
+           bg-primary/10 text-primary border border-primary/30;
+  }
+
+  .input-cyber {
+    @apply w-full px-4 py-3 bg-dark border border-border rounded-lg text-white
+           focus:ring-2 focus:ring-primary/50 focus:border-primary focus:outline-none
+           transition-all duration-300 placeholder-gray-600;
+  }
+
+  .nav-link {
+    @apply font-medium transition-all duration-300 relative text-gray-300 hover:text-primary;
+  }
+
+  .nav-link::after {
+    content: '';
+    @apply absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all duration-300;
+  }
+
+  .nav-link:hover::after,
+  .nav-link.active::after {
+    @apply w-full;
+  }
+
+  .nav-link.active {
+    @apply text-primary;
+  }
+
+  .stat-card {
+    @apply text-center p-8 rounded-xl border border-border bg-card
+           hover:border-primary/50 transition-all duration-300;
+  }
+
+  .feature-check {
+    @apply flex items-center gap-3 text-gray-300;
+  }
+
+  .feature-check::before {
+    content: '▸';
+    @apply text-accent font-bold flex-shrink-0;
+  }
+}
+
+/* Cyber grid background */
+.cyber-grid-bg {
+  background-image:
+    linear-gradient(rgba(0, 212, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 212, 255, 0.03) 1px, transparent 1px);
+  background-size: 50px 50px;
+}
+
+/* Glowing border animation */
+@keyframes borderGlow {
+  0%, 100% { border-color: rgba(0, 212, 255, 0.3); }
+  50% { border-color: rgba(0, 212, 255, 0.8); }
+}
+
+.border-glow {
+  animation: borderGlow 2s ease-in-out infinite;
+}
+
+/* Typing cursor */
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+.cursor-blink::after {
+  content: '|';
+  animation: blink 1s step-end infinite;
+  color: #00d4ff;
+}
+
+/* Scan line effect */
+.scan-line {
+  position: relative;
+  overflow: hidden;
+}
+
+.scan-line::after {
+  content: '';
+  position: absolute;
+  top: -100%;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, rgba(0, 212, 255, 0.4), transparent);
+  animation: scan 4s linear infinite;
+}
+
+@keyframes scan {
+  0% { top: -2px; }
+  100% { top: 100%; }
+}
+
+/* Particle dots */
+.dot-pattern {
+  background-image: radial-gradient(rgba(0, 212, 255, 0.15) 1px, transparent 1px);
+  background-size: 30px 30px;
+}

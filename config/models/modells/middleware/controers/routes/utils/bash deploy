@@ -1,0 +1,14 @@
+# 1. Set environment variables
+export NODE_ENV=production
+export MONGODB_URI=your-production-mongodb-uri
+export JWT_SECRET=your-production-jwt-secret
+
+# 2. Build and start with PM2
+npm install -g pm2
+pm2 start server.js --name "cyber-guard-api"
+
+# 3. Setup Nginx reverse proxy
+# Add nginx configuration
+
+# 4. Enable SSL with Let's Encrypt
+sudo certbot --nginx -d yourdomain.com

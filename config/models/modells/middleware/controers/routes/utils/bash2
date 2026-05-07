@@ -1,0 +1,8 @@
+cd frontend
+
+# Create basic frontend structure
+touch index.html styles.css script.js
+
+# If using a build tool (optional)
+npm init -y
+npm install vite --save-dev

@@ -1,0 +1,21 @@
+# 1. Create project directory
+mkdir cyber-guard-fullstack
+cd cyber-guard-fullstack
+
+# 2. Create backend
+mkdir backend && cd backend
+
+# 3. Initialize package.json
+npm init -y
+
+# 4. Install all dependencies
+npm install express mongoose bcryptjs jsonwebtoken cors helmet express-rate-limit express-validator dotenv nodemailer cloudinary multer compression morgan express-mongo-sanitize xss-clean hpp crypto uuid joi winston
+
+# 5. Install dev dependencies
+npm install -D nodemon jest supertest eslint
+
+# 6. Create all files from above code
+# Create the directory structure and add all files
+
+# 7. Start the development server
+npm run dev

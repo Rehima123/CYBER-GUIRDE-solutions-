@@ -1,0 +1,10 @@
+cd frontend
+
+# If you have a static server, use it:
+npx serve . -p 3000
+
+# Or use Python:
+python -m http.server 3000
+
+# Or use PHP:
+php -S localhost:3000
